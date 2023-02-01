@@ -1,0 +1,150 @@
+<html>
+
+<head>
+    <title>Language Experiment</title>
+  </title><!--JS-->
+  <!-- external general utilities -->
+  <script src="shared/js/jquery-1.11.1.min.js"></script>
+  <script src="shared/full-projects/jquery-ui/jquery-ui.min.js"></script>
+  <script src="shared/js/underscore-min.js"></script>
+
+  <!-- experiment logic -->
+  <script src="shared/js/exp-V2.js"></script>
+  <script src="shared/js/stream-V2.js"></script>
+
+  <!-- utilities to submit data to proliferate -->
+  <script src="https://proliferate.alps.science/static/js/proliferate.js"></script>
+
+  <!-- general utilities -->
+  <script src="shared/js/browserCheck.js"></script>
+  <script src="shared/js/utils.js"></script>
+  <link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <link href="shared/css/cocolab-style.css" rel="stylesheet" type="text/css">
+  <link href="css/local-style.css" rel="stylesheet" type="text/css">
+
+    <!-- experiment file -->
+    <script src="stimuli_creation/reading_stims.js"></script>
+    <script src="stimuli_creation/example_stims.js"></script>
+    <script type="text/javascript">
+      var CONDITION = 1;
+    </script>
+    <script src="js/template.js"></script>
+
+</head>
+<!-- instructions -->
+<body onload="init()">
+  <noscript>This task requires JavaScript.</noscript>
+
+  <div class="slide" id="i0" >
+    <p id="instruct-text">
+      Thanks so much for taking my survey! In the experiment, I’ll be asking for your judgments about what kind of freedom some texts exhibit: </p>
+
+  <p>    You could call yourself free if you have the ability to achieve your goals and fulfill your potential. This involves having access to the resources and opportunities that you need in order to develop and grow. </p>
+
+<p>      You could also call yourself free if you aren’t constrained by obstacles or another’s interference. This involves acting without coercion or oppression. </p>
+
+  <p>    This survey will ask you to differentiate between the two, so we’ll label the first of these <strong> opportunity freedom </strong>and the second one <strong>obstacle freedom</strong>. </p>
+
+    <p class="left">
+      <strong><br>
+      LEGAL INFORMATION</strong>:<br>
+      <br>
+      We invite you to participate in a research study on language production and comprehension. Your experimenter will ask you to do a linguistic task such as reading sentences or words, naming pictures or describing scenes, making up sentences of your own, or participating in a simple language game. You may also be asked to complete a short personality test.
+      <br>
+      <br>
+      There are no risks or benefits of any kind involved in this study.
+      <br>
+      <br>
+    If you have read this form and have decided to participate in this experiment, please understand your participation is voluntary and you have the right to withdraw your consent or discontinue participation at any time without penalty or loss of benefits to which you are otherwise entitled. You have the right to refuse to do particular tasks. Your individual privacy will be maintained in all published and written dataresulting from the study. You may print this form for your records.
+      <br>
+      <strong><br>
+      CONTACT INFORMATION</strong>:
+      <br>
+      <br>
+      If you have any questions, concerns or complaints about this study, its procedures, risks and benefits, you should contact Julia Meltzer at (917)-842-6217.
+      <br>
+      <br>
+      If you are not satisfied with how this study is being conducted, or if you have any concerns, complaints, or general questions about the research or your rights as a participant, please contact the Stanford Institutional Review Board (IRB) to speak to someone independent of the research team at (650)-723-2480 or toll free at 1-866-680-2906. You can also write to the Stanford IRB, Stanford University, 3000 El Camino Real, Five Palo Alto Square, 4th Floor, Palo Alto, CA 94306 USA.
+      <br>
+      <br>
+      If you agree to participate, please proceed to the study tasks.
+    </p>
+  </div>
+
+
+  <div class="slide" id="instructions">
+
+		<h3>Instructions</h3>
+    <p>You will be presented with a series of quotations which end mid-sentence. Your first task is to type a few words of what may follow to complete the sentence or phrase. If you come up with several options, choose any that seem natural.
+    <p> </p>
+      <p> Then, your second task will be to assess whether the resulting text is an example of <strong>opportunity freedom </strong>or <strong>obstacle freedom</strong>. If you believe the phrase to be neither or both types of freedom apply, please select 'Neither or Both". </p>
+    <p> </p>
+    <p> Content warning: the texts below are randomly sampled online quotations from 2012. Feel free to skip quotations that may contain language you find objectionable.  </p>
+    <p>Let's start with an example!</p>
+
+  </div>
+
+  <div class="slide" id="example">
+    <h3>Example</h3>
+    <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
+
+    <p class = "question"> "The cat could jump onto..." </p>
+
+      <textarea id="example_answer" rows="1" cols="25"></textarea><br>
+      <button onclick="_s.submit()">Done</button>
+      <p> </p>
+
+      <div  id="example"class="classify">
+
+      <input type="button" value="Opportunity Freedom" id="test-response-1" class="response-buttons button">
+      <input type="button" value="Obstacle Freedom" id="test-response-2" class="response-buttons button">
+      <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
+
+      </div>
+		</div>
+    <br>
+</div>
+
+<div class="slide" id="almost">
+
+  <h3>Let's Get Started!</h3>
+  <p>Great job! Now we can really get started.</p>
+  <p><strong>To reiterate:</strong> on the following pages, you will see an incomplete sentence. Your first task is to type a few words of what may follow to complete the sentence or phrase. If you come up with several options, choose any that seem natural.
+  <p> </p>
+  <p> Then, your second task will be to assess whether the resulting text is an example of <strong>opportunity freedom </strong> (the ability to achieve your goals and fulfill your potential) or <strong>obstacle freedom</strong> (no external contraints or interference).
+</div>
+
+  <div class="slide" id="trial">
+
+    <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
+
+    <p id="stimulus-sentence"></p>
+
+      <textarea id="example_answer" rows="1" cols="25"></textarea><br>
+      <button onclick="_s.submit()">Done</button>
+      <p> </p>
+
+      <div id="answer" class="classify">
+      <p> Now, considering the sentence with your addition, is this an example of: </p>
+      <input type="button" value="Obstacle Freedom" id="test-response-1" class="response-buttons button">
+      <input type="button" value="Opportunity Freedom" id="test-response-2" class="response-buttons button">
+      <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
+    </div>
+
+
+  </div>
+
+  <div id="thanks" class="slide js" >
+    <p  class="big" id="thanks-text">Thank you so much for your time!</p>
+  </div>
+
+  <div class="progress">
+    <span>Progress:</span>
+    <div class="bar-wrapper">
+      <div class="bar" width="0%">
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
