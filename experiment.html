@@ -11,6 +11,8 @@
   <!-- experiment logic -->
   <script src="shared/js/exp-V2.js"></script>
   <script src="shared/js/stream-V2.js"></script>
+  <script src="experiment.js"></script>
+
 
   <!-- utilities to submit data to proliferate -->
   <script src="https://proliferate.alps.science/static/js/proliferate.js"></script>
@@ -89,13 +91,13 @@
     <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
 
     <p class = "question"> "The cat could jump onto..." </p>
-
+	   <p> </p>
       <textarea id="example_answer" rows="1" cols="25"></textarea><br>
       <button onclick="_s.submit()">Done</button>
       <p> </p>
 
       <div  id="example"class="classify">
-
+      <p> Now, considering the sentence with your addition, is this an example of: </p>
       <input type="button" value="Opportunity Freedom" id="test-response-1" class="response-buttons button">
       <input type="button" value="Obstacle Freedom" id="test-response-2" class="response-buttons button">
       <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
