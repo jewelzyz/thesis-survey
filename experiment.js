@@ -1,3 +1,9 @@
+var trial_counter = 0;
+var exp;
+function slide_set() {
+
+}
+
 // set up experiment logic for each slide
 function make_slides(f) {
   var slides = {};
