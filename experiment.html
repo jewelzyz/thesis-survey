@@ -4,24 +4,22 @@
     <title>Language Experiment</title>
   </title><!--JS-->
   <!-- external general utilities -->
-  <script src="shared/js/jquery-1.11.1.min.js"></script>
+  <script src="shared/jquery-1.11.1.min.js"></script>
   <script src="shared/full-projects/jquery-ui/jquery-ui.min.js"></script>
-  <script src="shared/js/underscore-min.js"></script>
+  <script src="shared/underscore-min.js"></script>
 
   <!-- experiment logic -->
-  <script src="shared/js/exp-V2.js"></script>
-  <script src="shared/js/stream-V2.js"></script>
-  <script src="experiment.js"></script>
-
+  <script src="shared/exp.js"></script>
+  <script src="shared/stream.js"></script>
 
   <!-- utilities to submit data to proliferate -->
   <script src="https://proliferate.alps.science/static/js/proliferate.js"></script>
 
   <!-- general utilities -->
-  <script src="shared/js/browserCheck.js"></script>
-  <script src="shared/js/utils.js"></script>
+  <script src="shared/browserCheck.js"></script>
+  <script src="shared/utils.js"></script>
   <link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
-  <link href="shared/css/cocolab-style.css" rel="stylesheet" type="text/css">
+  <link href="shared/cocolab-style.css" rel="stylesheet" type="text/css">
   <link href="css/local-style.css" rel="stylesheet" type="text/css">
 
     <!-- experiment file -->
@@ -30,12 +28,11 @@
     <script type="text/javascript">
       var CONDITION = 1;
     </script>
-    <script src="js/template.js"></script>
+    <script src="experiment.js"></script>
 
 </head>
 <!-- instructions -->
 <body onload="init()">
-<script src="experiment.js"></script>
 
   <div class="slide" id="i0" >
     <p id="instruct-text">
@@ -90,8 +87,8 @@
     <h3>Example</h3>
     <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
 
-    <p class = "question"> "The cat could jump onto..." </p>
-	   <p> </p>
+    <p class = "question"> "The cat is allowed to be..." </p>
+
       <textarea id="example_answer" rows="1" cols="25"></textarea><br>
       <button onclick="_s.submit()">Done</button>
       <p> </p>
