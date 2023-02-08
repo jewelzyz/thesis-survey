@@ -20,7 +20,7 @@
   <script src="shared/utils.js"></script>
   <link href="shared/full-projects/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css">
   <link href="shared/cocolab-style.css" rel="stylesheet" type="text/css">
-  <link href="local-style.css" rel="stylesheet" type="text/css">
+  <link href="css/local-style.css" rel="stylesheet" type="text/css">
 
     <!-- experiment file -->
     <script type="text/javascript">
@@ -66,6 +66,8 @@
       <br>
       If you agree to participate, please proceed to the study tasks.
     </p>
+    <button onclick="exp.go()" class="next">Continue </button>
+
   </div>
 
 
@@ -78,6 +80,7 @@
     <p> </p>
     <p> Content warning: the texts below are randomly sampled online quotations from 2012. Feel free to skip quotations that may contain language you find objectionable.  </p>
     <p>Let's start with an example!</p>
+    <button onclick="exp.go()" class="next">Continue </button>
 
   </div>
 
@@ -88,14 +91,15 @@
     <p class = "question"> "The cat is allowed to be..." </p>
 
       <textarea id="example_answer" rows="1" cols="25"></textarea><br>
-      <button onclick="_s.submit()">Done</button>
+      <button onclick="show_example_buttons()">Done</button>
       <p> </p>
 
-      <div  id="example"class="classify">
+      <div  id="example_buttons"class="classify">
       <p> Now, considering the sentence with your addition, is this an example of: </p>
       <input type="button" value="Opportunity Freedom" id="test-response-1" class="response-buttons button">
       <input type="button" value="Obstacle Freedom" id="test-response-2" class="response-buttons button">
       <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
+      <button onclick="exp.go()" class="next">Continue </button>
 
       </div>
 		</div>
@@ -108,24 +112,30 @@
   <p>Great job! Now we can really get started.</p>
   <p><strong>To reiterate:</strong> on the following pages, you will see an incomplete sentence. Your first task is to type a few words of what may follow to complete the sentence or phrase. If you come up with several options, choose any that seem natural.
   <p> </p>
-  <p> Then, your second task will be to assess whether the resulting text is an example of <strong>opportunity freedom </strong> (the ability to achieve your goals and fulfill your potential) or <strong>obstacle freedom</strong> (no external contraints or interference).
+  <p> Then, your second task will be to assess whether the resulting text is an example of: </p>
+    <li>  <strong>opportunity freedom </strong> (the ability to achieve your goals and fulfill your potential) or </li>
+    <li><strong>obstacle freedom</strong> (no external contraints or interference). </li>
+    <button onclick="exp.go()" class="next">I'm ready! </button>
+
 </div>
 
   <div class="slide" id="trial">
 
     <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
 
-    <p id="stimulus-sentence"></p>
+    <p id="stimulus-sentence"> stimulus </p>
 
-      <textarea id="example_answer" rows="1" cols="25"></textarea><br>
-      <button onclick="_s.submit()">Done</button>
+      <textarea id="text_answer" rows="1" cols="25"></textarea><br>
+      <button onclick="show_buttons()">Done</button>
       <p> </p>
 
-      <div id="answer" class="classify">
+      <div id="buttons" class="classify">
       <p> Now, considering the sentence with your addition, is this an example of: </p>
       <input type="button" value="Obstacle Freedom" id="test-response-1" class="response-buttons button">
       <input type="button" value="Opportunity Freedom" id="test-response-2" class="response-buttons button">
       <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
+      <button onclick="exp.go()" class="next">Continue </button>
+
     </div>
 
 
