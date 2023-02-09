@@ -164,8 +164,6 @@ function init() {
     "example",
     "almost",
     "trial",
-    "trial",
-    "trial",
     "thanks"
   ];
 
