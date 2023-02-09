@@ -63,10 +63,10 @@ slides.example = slide({
       exp.stim = exp.list.pop()
 
 
-      console.log('item',exp.item)
+     // console.log('item',exp.item)
 
       // replace the placeholder in the HTML document with the relevant sentences for this trial
-      $("#stimulus-sentence").html(exp.item);
+      $("#stimulus-sentence").html(exp.stim);
       $(".err").hide();
     },
 
