@@ -119,7 +119,7 @@ function init() {
 
   exp.trials = [];
   //exp.catch_trials = [];
-  var stimuli = {to: [tos], from: [froms], of: [ofs]}
+  var stimuli = {to: [_.shuffle(tos)], from: [_.shuffle(froms)], of: [_.shuffle(ofs)]}
   
   var tos = ['They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…', 
   'Gov Corbett is moving money away from public schools into an expansion of charter schools and vouchers. Even though the budgets of our school districts have been cut they are required to fund charter schools within the district. "These institutions give educators the freedom…',
@@ -165,10 +165,16 @@ function init() {
     "almost",
     "trial",
     "trial",
+    "trial",
+    "trial",
+    "trial",
+    "trial",
+    "trial",
+    "trial",
+    "trial",
+    "trial",
     "thanks"
   ];
-
-  //exp.data_trials = [];
 
   //make corresponding slides:
   exp.slides = make_slides(exp);
