@@ -1,6 +1,4 @@
 var trial_counter = 0;
-function slide_set() {
-}
 
 // set up experiment logic for each slide
 function make_slides(f) {
@@ -24,18 +22,6 @@ function make_slides(f) {
       $('example_buttons').hide();
     }
   });
-
-//    log_responses: function() {
-      // add response to exp.data_trials
-      // this data will be submitted at the end of the experiment
-  //    exp.data_trials.push({
-    //    "slide_number_in_experiment": exp.phase,
-      //  "id": "instructions",
-        //"response": this.radio,
-        // "strangeSentence": "",
-//      });
-  //  },
-//  });
 
 slides.example = slide({
   name: "example",
@@ -63,13 +49,14 @@ slides.example = slide({
     let randomFreedom = keys[Math.floor(Math.random() * keys.length)];
 
     // Values for the chosen key:
-    let values = object[randomFreedom];
+    let values = stimuli[randomFreedom];
 
     // Choose a random value from this array:
     let stimulus = values[Math.floor(Math.random() * values.length)];
 
-    // Pop the chosen value from the array of values
+    // Pop the chosen value from the array of values and update stimuli
     values.splice(values.indexOf(stimulus), 1);
+    
 
     console.log(stimulus);
       
@@ -81,24 +68,16 @@ slides.example = slide({
       $(".err").hide();
     },
 
-    // save response
-//    log_responses: function() {
-  //    exp.data_trials.push({
-    //    "id": this.stim.ID,
-      //  "legal": this.stim.ID,
-        //"response": exp.text_answer, //textbox input
-        //"classification": exp.answer //'object', 'opportunity', 'neither/both'
-      //});
        $('#done').click(function() {
         var text = $('#text-answer').val();
-        var classification = $('#response-buttons button')
+        var classification = $('#response-buttons button').val()
         // store text input
         console.log([exp.stim, text, classification]);
    });
     },
 
     start: function() {
-      document.getElementById("buttons").style.display = "none";
+      document.getElementById('#buttons').style.display = "none";
     }
   });
 
@@ -107,26 +86,10 @@ slides.example = slide({
     name: "thanks",
     start: function() {
       exp.data = {
-        "trials": exp.data_trials,
-        "catch_trials": exp.catch_trials,
         "system": exp.system,
-        "subject_information": exp.subj_data,
         "time_in_minutes": (Date.now() - exp.startT) / 60000
       };
       proliferate.submit(exp.data);
-    }
-   
-//   
-  //  log_responses : function() {
-    //    var stimulus = this.stim;
-      //  exp.trials.push({
-        //  "trial_id": this.stim.id,
-          //"legal": this.stim.legal,
-    //      "lexeme": this.stim.lexeme,
-      //    "response_correct": this.response_correct ? 1 : 0,
-        //  "trial_no": trial_counter,
-        //});
-      //}
       trial_counter++;
     }
   });
@@ -145,13 +108,13 @@ function next() {
 }
 
 function show_example_buttons() {
-  var x = document.getElementById(#"example_buttons");
+  var x = document.getElementById("#example_buttons");
   x.style.display = "block";
 
 }
 
 function show_buttons() {
-    var y = document.getElementById("buttons");
+    var y = document.getElementById("#buttons");
     y.style.display = "block";
 }
 
@@ -160,7 +123,6 @@ function init() {
 
   exp.trials = [];
   //exp.catch_trials = [];
-  var stimuli = {to: [_.shuffle(tos)], from: [_.shuffle(froms)], of: [_.shuffle(ofs)]}
   
   var tos = ['They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…', 
   'Gov Corbett is moving money away from public schools into an expansion of charter schools and vouchers. Even though the budgets of our school districts have been cut they are required to fund charter schools within the district. "These institutions give educators the freedom…',
@@ -193,9 +155,8 @@ function init() {
   '“It brought a lot of threats from people already saying I\'ll never work again," she told the newspaper. "If that\'s what America has come to, where we all hate and bully people, there\'s no more freedom…',
   'It was then, at fifteen, when Megan and I met our first humans. Until that point the technicians kept us in atelier tanks -- alive and conscious, fed information and nutrients through a series of cables and tubes. The tanks gave us freedom…',
   'But as your relationship subtly intensified, she choose the practicality and constraint of her and him over the irrationality and freedom…']
-
+  var stimuli = {"from": froms, "to": tos, "of": ofs}
   exp.stimuli = stimuli;
-  exp.stimuli = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
   exp.n_trials = 10;
 
   //blocks of the experiment:
@@ -223,4 +184,5 @@ function init() {
   $('.slide').hide(); //hide everything
 
   exp.go(); //show first slide
+}
 }
