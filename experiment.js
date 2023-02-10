@@ -61,12 +61,12 @@ slides.example = slide({
       //exp.stimuli = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
       exp.list = exp.stimuli.pop()
       exp.stim = exp.list.pop()
-
+      curStim = "heyyyo"
 
      // console.log('item',exp.item)
 
       // replace the placeholder in the HTML document with the relevant sentences for this trial
-      $("#stimulus-sentence").html(exp.stim);
+      $("#stimulus-sentence").html(curStim);
       $(".err").hide();
     },
 
