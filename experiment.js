@@ -41,7 +41,7 @@ slides.example = slide({
     // To rotate through stimulus list:
     present: exp.stimuli,
     present_handle : function(stim) {
-    
+
     // Get all the keys from the object:
     let keys = Object.keys(stimuli);
 
@@ -56,10 +56,10 @@ slides.example = slide({
 
     // Pop the chosen value from the array of values and update stimuli
     values.splice(values.indexOf(stimulus), 1);
-    
+
 
     console.log(stimulus);
-      
+
       // store stimulus data
       this.stim = stimulus;
 
@@ -72,7 +72,7 @@ slides.example = slide({
         var classification = $('#response-buttons button').val()
         // store text input
         console.log([exp.stim, text, classification]);
-       });
+      });
     },
 
     start: function() {
@@ -122,8 +122,8 @@ function init() {
 
   exp.trials = [];
   //exp.catch_trials = [];
-  
-  var tos = ['They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…', 
+
+  var tos = ['They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…',
   'Gov Corbett is moving money away from public schools into an expansion of charter schools and vouchers. Even though the budgets of our school districts have been cut they are required to fund charter schools within the district. "These institutions give educators the freedom…',
   'What is the very best way to get the Amazon system to work for you when you\'re promoting its products? Offering your buyers a wide selection of products to choose from offers them lots of freedom…',
   'It was our Japanese publisher, Sunsoft, who approached us out of the blue asking us if we\'d do a game for an older audience. We shared a tremendous amount of mutual respect toward one another and we were given total creative freedom…',
