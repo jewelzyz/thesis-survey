@@ -55,16 +55,29 @@ slides.example = slide({
     // To rotate through stimulus list:
     present: exp.stimuli,
     present_handle : function(stim) {
+    
+    // Get all the keys from the object:
+    let keys = Object.keys(stimuli);
 
+    // Choose a random key from the array of keys:
+    let randomFreedom = keys[Math.floor(Math.random() * keys.length)];
+
+    // Values for the chosen key:
+    let values = object[randomFreedom];
+
+    // Choose a random value from this array:
+    let stimulus = values[Math.floor(Math.random() * values.length)];
+
+    // Pop the chosen value from the array of values
+    values.splice(values.indexOf(stimulus), 1);
+
+    console.log(stimulus);
+      
       // store stimulus data
-      this.stim = stim;
-      //exp.stimuli = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
-      exp.list = exp.stimuli.pop();
-      exp.stim = exp.list.pop();
-     // console.log('item',exp.item)
+      this.stim = stimulus;
 
       // replace the placeholder in the HTML document with the relevant sentences for this trial
-      $("#stimulus-sentence").html(exp.stim);
+      $("#stimulus-sentence").html(stimulus);
       $(".err").hide();
     },
 
@@ -132,7 +145,7 @@ function next() {
 }
 
 function show_example_buttons() {
-  var x = document.getElementById("example_buttons");
+  var x = document.getElementById(#"example_buttons");
   x.style.display = "block";
 
 }
