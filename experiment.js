@@ -121,6 +121,13 @@ slides.example = slide({
   return slides;
 }
 
+function next() {
+  if (document.getElementById("textbox").value === "") {
+      alert("Textbox must be filled!");
+      event.preventDefault();
+    }
+}
+
 function show_example_buttons() {
   var x = document.getElementById("example_buttons");
   x.style.display = "block";
