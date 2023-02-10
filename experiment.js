@@ -72,7 +72,7 @@ slides.example = slide({
         var classification = $('#response-buttons button').val()
         // store text input
         console.log([exp.stim, text, classification]);
-   });
+       });
     },
 
     start: function() {
@@ -183,5 +183,4 @@ function init() {
   $('.slide').hide(); //hide everything
 
   exp.go(); //show first slide
-}
 }
