@@ -92,10 +92,10 @@
     <p class = "question"> "The cat is allowed to be..." </p>
 
       <textarea id="example_answer" rows="1" cols="25"></textarea><br>
-      <button onclick="show_example_buttons()">Done</button>
+      <button onclick="show_buttons()">Done</button>
       <p> </p>
 
-      <div  id="example_buttons"class="classify">
+      <div  id="example_buttons" class="classify">
       <p> Now, considering the sentence with your addition, is this an example of: </p>
       <input type="button" value="Opportunity Freedom" id="test-response-1" class="response-buttons button">
       <input type="button" value="Obstacle Freedom" id="test-response-2" class="response-buttons button">
@@ -117,7 +117,7 @@
   <p> Then, your second task will be to assess whether the resulting text is an example of: </p>
     <li>  <strong>opportunity freedom </strong> (the ability to achieve your goals and fulfill your potential) or </li>
     <li><strong>obstacle freedom</strong> (no external contraints or interference). </li>
-    <button onclick="exp.go()" class="next">I'm ready! </button>
+    <button onclick="exp.go()" class="next">Ready! </button>
 
 </div>
 
@@ -125,8 +125,9 @@
 
     <p>Please type the 2-4 words that most naturally follow the quotation below.</p>
 
-    <p id="stimulus-sentence"> stimulus </p>
-
+    <div id ="stimulus-sentence">
+    <p > stimulus </p>
+    </div>
       <textarea id="text_answer" rows="1" cols="25"></textarea><br>
       <button onclick="show_buttons()">Done</button>
       <p> </p>
@@ -137,7 +138,7 @@
       <input type="button" value="Opportunity Freedom" id="test-response-2" class="response-buttons button">
       <input type="button" value="Neither or Both" id="test-response-3" class="response-buttons button">
 	      <p></p>
-      <button onclick="next()" class="next">Continue </button>
+      <button onclick="next()" class="next"> Continue </button>
 
     </div>
 
