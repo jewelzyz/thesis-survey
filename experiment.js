@@ -71,13 +71,19 @@ slides.example = slide({
     },
 
     // save response
-    log_responses: function() {
-      exp.data_trials.push({
-        "id": this.stim.ID,
-        "legal": this.stim.ID,
-        "response": exp.text_answer, //textbox input
-        "classification": exp.answer //'object', 'opportunity', 'neither/both'
-      });
+//    log_responses: function() {
+  //    exp.data_trials.push({
+    //    "id": this.stim.ID,
+      //  "legal": this.stim.ID,
+        //"response": exp.text_answer, //textbox input
+        //"classification": exp.answer //'object', 'opportunity', 'neither/both'
+      //});
+       $('#done').click(function() {
+        var text = $('#text-answer').val();
+        var classification = $('#response-buttons button')
+        // store text input
+        console.log([exp.stim, text, classification]);
+   });
     },
 
     start: function() {
@@ -97,6 +103,20 @@ slides.example = slide({
         "time_in_minutes": (Date.now() - exp.startT) / 60000
       };
       proliferate.submit(exp.data);
+    }
+   
+//   
+  //  log_responses : function() {
+    //    var stimulus = this.stim;
+      //  exp.trials.push({
+        //  "trial_id": this.stim.id,
+          //"legal": this.stim.legal,
+    //      "lexeme": this.stim.lexeme,
+      //    "response_correct": this.response_correct ? 1 : 0,
+        //  "trial_no": trial_counter,
+        //});
+      //}
+      trial_counter++;
     }
   });
 
