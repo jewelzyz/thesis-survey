@@ -126,6 +126,9 @@ function next() {
       alert("Textbox must be filled!");
       event.preventDefault();
     }
+  else {
+    exp.go()
+  }
 }
 
 function show_example_buttons() {
