@@ -59,9 +59,9 @@ slides.example = slide({
       // store stimulus data
       this.stim = stim;
       //exp.stimuli = _.shuffle(stimuli); //call _.shuffle(stimuli) to randomize the order;
-      exp.list = exp.stimuli.pop()
-      exp.stim = exp.list.pop()
-      curStim = "heyyyo"
+      exp.list = exp.stimuli.pop();
+      exp.stim = exp.list.pop();
+      curStim = "heyyyo";
 
      // console.log('item',exp.item)
 
