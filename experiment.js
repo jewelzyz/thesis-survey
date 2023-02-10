@@ -66,7 +66,6 @@ slides.example = slide({
       // replace the placeholder in the HTML document with the relevant sentences for this trial
       $("#stimulus-sentence").html(stimulus);
       $(".err").hide();
-    },
 
        $('#done').click(function() {
         var text = $('#text-answer').val();
