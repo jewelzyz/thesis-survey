@@ -56,6 +56,14 @@ input.button {
   cursor: pointer;
 }
 
+input.button:hover {
+  background-color: #75aaff;	
+}
+
+input.button:active {
+  background-color: #91a3bf;	
+}
+
 
 #player {
   margin: 15px 0 60px 0;
