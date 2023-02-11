@@ -60,7 +60,15 @@ slides.example = slide({
     // hide error message and buttons
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
+    var text = $('#example_answer').val();
+    var classification = $('#response-buttons button').val()
+    console.log([text, classification]);
   }
+  
+});
+  
+slides.almost = slide({
+  document.getElementById("example_answer").value = "";
 
 });
 
@@ -68,12 +76,9 @@ slides.example = slide({
     name: "trial",
     // To rotate through stimulus list:
     present: exp.stimuli,
-  present_handle : function() {
-
-    // replace the placeholder in the HTML document with the relevant sentences for this trial
-    $(".err").hide();
-
-     $('#done').click(() => {
+    present_handle : function() {
+      $(".err").hide();
+      $('#done').click(() => {
       var text = $('#text-answer').val();
       var classification = $('#response-buttons button').val()
       // store text input
