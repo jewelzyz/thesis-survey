@@ -102,7 +102,7 @@ slides.almost = slide({
       var stim = values[Math.floor(Math.random() * values.length)];
 
       // Pop the chosen value from the array of values and update stimuli
-      stimulus[random_freedom] = values.splice(values.indexOf(stim), 1);
+      stimuli[random_freedom] = values.splice(values.indexOf(stim), 1);
 
 
         // store stimulus data
