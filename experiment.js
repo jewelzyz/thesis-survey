@@ -84,9 +84,6 @@ slides.almost = slide({
       $('#done').click(() => {
         var text = $('#text-answer').val();
         var classification = $('#response-buttons button:selected').val()
-        
-      // store text input
-       console.log([this.stim, text, classification]);
     });
   },
 
@@ -111,8 +108,18 @@ slides.almost = slide({
         // store stimulus data
         this.stim = stim;
         document.getElementById('buttons').style.display = "none";
-        document.getElementById("text_answer").value = "";
+        this.input = document.getElementById("text_answer").value = "";
         document.querySelector("#stimulus-sentence").innerHTML = stim;
+        this.classification = $('#response-buttons button:selected').val()
+    },
+    
+    log_responses : function() {
+    exp.data_trials.push({
+        "stim" : this.stim,
+        "text" : this.input,
+        "classification" : this.classification
+    });
+
     }
   });
 
@@ -121,6 +128,7 @@ slides.almost = slide({
     name: "thanks",
     start: function() {
       exp.data = {
+        "trials": exp.trials,
         "system": exp.system,
         "time_in_minutes": (Date.now() - exp.startT) / 60000
       };
@@ -138,7 +146,8 @@ function next() {
       event.preventDefault();
     }
   else {
-    exp.go()
+    this.log_responses();
+    exp.go();
   }
 }
 
@@ -160,11 +169,8 @@ function show_buttons() {
 function init() {
 
   exp.trials = [];
-  //exp.catch_trials = [];
-
 
   exp.stimuli = stimuli;
-  exp.n_trials = 10;
 
   //blocks of the experiment:
   exp.structure = [
