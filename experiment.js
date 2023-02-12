@@ -7,7 +7,7 @@ var tos = ['They think I do great work. It\'s things like the parody video that 
 'Our constitution grants to each citizen the liberty and freedom to determine their own perception of reality. We simply ask each American citizen to exercise their freedom…',
 'We allowed Percival to modify the starting conditions of this system to see if that would allow us to get to the current situation. At least, that was what we intended. It turns out that we gave Percival the additional freedom… ',
 'She said, "I live in luxury now. I don\'t have to spend time with people I don\'t like. I have complete freedom…',
-'Once I\'m airborne, the kite responds like a parachute, slowing my descent. I glide for a few seconds before landing on a feathery cushion of waist-deep joy. But most liberating is the sheer freedom…']
+'Once I\'m airborne, the kite responds like a parachute, slowing my descent. I glide for a few seconds before landing on a feathery cushion of waist-deep joy. But most liberating is the sheer freedom…'];
 
 var froms = ['Human freedom is thus distinct from the kind of freedom talked about by animal liberationists. Human freedom is largely our ability to act free of external constraints, but also freedom…',
 'Both the Religious Test Clause and the First Amendment of the Constitution are not guarantees of religious heterogeneity--they are guarantees of a freedom…',
@@ -18,7 +18,7 @@ var froms = ['Human freedom is thus distinct from the kind of freedom talked abo
 'I turn to see Grandmother, wiping her eyes and lighting a candle at her shrine. She makes the Sign of the Cross, then tells me a story about the rich man who had everything he wanted except freedom…',
 'Subjective performance is conceptualized as a combination of both the athletes\' perception of their own performance and the athletes\' perception of the coaches\' perception of the athletes\' performance level. Subjective performance correlated best with adversity, concentration, confidence, and freedom…',
 'Knowing constitutional law requires full knowledge of all four Organic Laws of the United States of America and the only way to acquire that knowledge is to read and study those laws. Together, the Declaration of Independence and the Articles of Confederation provide a path to freedom…',
-'I also believe that in five years or so (if not earlier), functional languages will hit the mainstream in a big way (particularly statically-typed FLs). The advantages of the type systems, the strong type checking, and the freedom…']
+'I also believe that in five years or so (if not earlier), functional languages will hit the mainstream in a big way (particularly statically-typed FLs). The advantages of the type systems, the strong type checking, and the freedom…'];
 
 var ofs = ['Ten years ago, 106 nations affirmed their dedication to respecting and upholding core democratic values including the right of citizens to choose their representatives through regular, free, and fair elections with universal and equal suffrage; to equal protection under the law; and to freedom…',
 'What happened to those beautiful statutes enunciated in the constitution which guarantee the sanctity of the citizen\'s life, property, and the many other rights such as the right to freedom…',
@@ -28,8 +28,8 @@ var ofs = ['Ten years ago, 106 nations affirmed their dedication to respecting a
 'It continues to lay claim to a chain of disputed islands in the East China Sea, and it has built 2,000 acres of new islands from sand and coral in the South China Sea, replete with bases and runways. In May, the United States started sending Navy warships to within 12 nautical miles of the islands to assert freedom…',
 '“It brought a lot of threats from people already saying I\'ll never work again," she told the newspaper. "If that\'s what America has come to, where we all hate and bully people, there\'s no more freedom…',
 'It was then, at fifteen, when Megan and I met our first humans. Until that point the technicians kept us in atelier tanks -- alive and conscious, fed information and nutrients through a series of cables and tubes. The tanks gave us freedom…',
-'But as your relationship subtly intensified, she choose the practicality and constraint of her and him over the irrationality and freedom…']
-var stimuli = {"from": froms, "to": tos, "of": ofs}
+'But as your relationship subtly intensified, she choose the practicality and constraint of her and him over the irrationality and freedom…'];
+var stimuli = {"from": froms, "to": tos, "of": ofs};
 
 // set up experiment logic for each slide
 function make_slides(f) {
@@ -61,14 +61,17 @@ slides.example = slide({
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
     var text = $('#example_answer').val();
-    var classification = $('#response-buttons button').val()
+    var classification = $('#response-buttons button:selected').val()
     console.log([text, classification]);
   }
   
 });
   
 slides.almost = slide({
-  document.getElementById("example_answer").value = "";
+  name: "almost",
+  start: function() {
+    document.getElementById("example_answer").value = "";
+  }
 
 });
 
@@ -79,10 +82,12 @@ slides.almost = slide({
     present_handle : function() {
       $(".err").hide();
       $('#done').click(() => {
-      var text = $('#text-answer').val();
-      var classification = $('#response-buttons button').val()
+        var text = $('#text-answer').val();
+        var classification = $('#response-buttons button:selected').val()
+        
       // store text input
-      console.log([this.stim, text, classification]);
+       console.log([this.stim, text, classification]);
+      }
     });
   }
 ,
