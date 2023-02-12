@@ -137,7 +137,7 @@ function next() {
       event.preventDefault();
     }
   else {
-    exp.data_trials.push({
+    exp.trials.push({
       "stim" : this.stim,
       "text" : this.input,
       "classification" : this.classification
