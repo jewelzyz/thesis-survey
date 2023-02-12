@@ -87,10 +87,8 @@ slides.almost = slide({
         
       // store text input
        console.log([this.stim, text, classification]);
-      }
     });
-  }
-,
+  },
 
     start: function() {
 
