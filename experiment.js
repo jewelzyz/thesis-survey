@@ -111,15 +111,6 @@ slides.almost = slide({
         this.input = document.getElementById("text_answer").value = "";
         document.querySelector("#stimulus-sentence").innerHTML = stim;
         this.classification = $('#response-buttons button:selected').val()
-    },
-    
-    log_responses : function() {
-    exp.data_trials.push({
-        "stim" : this.stim,
-        "text" : this.input,
-        "classification" : this.classification
-    });
-
     }
   });
 
@@ -146,7 +137,11 @@ function next() {
       event.preventDefault();
     }
   else {
-    this.log_responses();
+    exp.data_trials.push({
+      "stim" : this.stim,
+      "text" : this.input,
+      "classification" : this.classification
+    });
     exp.go();
   }
 }
