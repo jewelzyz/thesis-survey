@@ -42,6 +42,15 @@ function make_slides(f) {
       exp.startT = Date.now();
     }
   });
+  
+  slides.legal = slide({
+    name: "legal",
+    start: function() {
+      // hide error message
+      $('.err').hide();
+    }
+  });
+  
   // set up the first example slide
   slides.instructions = slide({
     name: "instructions",
@@ -170,6 +179,7 @@ function init() {
   //blocks of the experiment:
   exp.structure = [
     "i0",
+    "legal",
     "instructions",
     "example",
     "almost",
