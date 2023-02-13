@@ -66,7 +66,10 @@ slides.almost = slide({
     start: function() {
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
-        this.input = document.getElementById("text_answer").value = "";
+    },
+    button: function() {
+      
+             this.input = document.getElementById("text_answer").value = "";
         if(document.getElementById('opportunity').checked) {
           exp.classification = "opportunity";
         } else if (document.getElementById('obstacle').checked) {
@@ -75,6 +78,8 @@ slides.almost = slide({
           exp.classification = "neither";
         }
     }
+    
+    
   });
 
   //
