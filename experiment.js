@@ -59,7 +59,7 @@ slides.almost = slide({
     present: exp.stims,
     present_handle : function(stim) {
       $(".err").hide();
-
+      document.getElementById("example_answer") = "";
       this.stim = stim; // store this information in the slide so you can record it later
       $("#stimulus-sentence").html(stim.sentence);
     },    
