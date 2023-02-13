@@ -32,13 +32,14 @@ table.table1 {
 
     width: 800px;
     height: 650px;
-
-    /*could explicitly set the following, but these are the defaults for me (chrome, linux)*/
     font-size: 20px;
-    background-color: rgb(255,255,255);
+    background-color: rgb(255, 228, 217);
 }
 
 /* start slide */
+form input[type="button"] {
+    background-color: #87b3ff;
+}
 
 #cocolab {
 	font-weight: bold;
