@@ -67,7 +67,13 @@ slides.almost = slide({
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
         this.input = document.getElementById("text_answer").value = "";
-        this.classification = $('#response-buttons button:selected').val()
+        if(document.getElementById('opportunity').checked) {
+          exp.classification = "opportunity";
+        } else if (document.getElementById('obstacle').checked) {
+          exp.classification = "obstacle";
+        } else if (document.getElementById('neither').checked) {
+          exp.classification = "neither";
+        }
     }
   });
 
