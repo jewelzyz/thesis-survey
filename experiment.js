@@ -44,20 +44,21 @@ slides.example = slide({
       alert("Textbox must be filled!");
       event.preventDefault();
     }
-  else {
-     this.input = document.getElementById("text_answer").value = "";
-     if(document.getElementById('opportunity').checked) {
+    else {
+      this.input = document.getElementById("text_answer").value = "";
+      if(document.getElementById('opportunity').checked) {
           exp.classification = "opportunity";
-     } else if (document.getElementById('obstacle').checked) {
+      } else if (document.getElementById('obstacle').checked) {
           exp.classification = "obstacle";
-     } else if (document.getElementById('neither').checked) {
+      } else if (document.getElementById('neither').checked) {
           exp.classification = "neither";
-     }
-    exp.trials.push({
-    "stim" : this.stim,
-    "text" : this.input,
-    "classification" : this.classification,
-    exp.go();
+      };
+      exp.trials.push({
+        "stim" : this.stim,
+        "text" : this.input,
+        "classification" : this.classification,
+      });
+      exp.go();
     }
 });
   
