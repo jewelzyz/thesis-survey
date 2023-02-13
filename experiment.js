@@ -64,15 +64,17 @@ function make_slides(f) {
 
 slides.example = slide({
   name: "example",
-
   start: function() {
     // hide error message and buttons
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
     var text = $('#example_answer').val();
-    var classification = $('#response-buttons button:selected').val()
-    console.log([text, classification]);
-  }
+    var classification = $('#response-buttons button:selected').val();
+  },
+  
+  button : function() {
+    this.log_responses();
+}
   
 });
   
@@ -150,6 +152,7 @@ function next() {
       "stim" : this.stim,
       "text" : this.input,
       "classification" : this.classification
+      console.log([text, classification]);
     });
     exp.go();
   }
