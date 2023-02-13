@@ -69,7 +69,7 @@ slides.almost = slide({
     },
     button: function() {
       
-        this.input = document.getElementById("text_answer").value = "";
+             this.input = document.getElementById("text_answer").value = "";
         if(document.getElementById('opportunity').checked) {
           exp.classification = "opportunity";
         } else if (document.getElementById('obstacle').checked) {
@@ -105,7 +105,6 @@ function next() {
       event.preventDefault();
     }
   else {
-    console.log("hey");
     exp.trials.push({
       "stim" : this.stim,
       "text" : this.input,
