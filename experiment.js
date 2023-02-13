@@ -37,7 +37,17 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     var text = $('#example_answer').val();
     var classification = $('#response-buttons button:selected').val();
-  }  
+  },
+  button: function() {
+        this.input = document.getElementById("text_answer").value = "";
+        if(document.getElementById('opportunity').checked) {
+          exp.classification = "opportunity";
+        } else if (document.getElementById('obstacle').checked) {
+          exp.classification = "obstacle";
+        } else if (document.getElementById('neither').checked) {
+          exp.classification = "neither";
+        }
+    }
 });
   
 slides.almost = slide({
