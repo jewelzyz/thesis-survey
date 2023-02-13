@@ -61,7 +61,7 @@ slides.almost = slide({
       $(".err").hide();
 
       this.stim = stim; // store this information in the slide so you can record it later
-      $(".stimulus-sentence").html(stim.sentence);
+      $("#stimulus-sentence").html(stim.sentence);
     },    
     start: function() {
         // store stimulus data
@@ -99,7 +99,6 @@ function next() {
       "text" : this.input,
       "classification" : this.classification,
     });
-    console.log([this.input, this.classification]);
     exp.go();
   }
 }
