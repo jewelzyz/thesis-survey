@@ -37,16 +37,12 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     var text = $('#example_answer').val();
     var classification = $('#response-buttons button:selected').val();
-  },
-  
-  button : function() {
-    this.log_responses();
-}
-  
+  }  
 });
   
 slides.almost = slide({
   name: "almost",
+  //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
   }
@@ -59,8 +55,9 @@ slides.almost = slide({
     present: exp.stims,
     present_handle : function(stim) {
       $(".err").hide();
+      //reseting textbox
       document.getElementById("text_answer").value = "";
-      this.stim = stim; // store this information in the slide so you can record it later
+      this.stim = stim; // store this information in the slide to record
       $("#stimulus-sentence").html(stim.sentence);
     },    
     start: function() {
@@ -68,8 +65,7 @@ slides.almost = slide({
         document.getElementById('buttons').style.display = "none";
     },
     button: function() {
-      
-             this.input = document.getElementById("text_answer").value = "";
+        this.input = document.getElementById("text_answer").value = "";
         if(document.getElementById('opportunity').checked) {
           exp.classification = "opportunity";
         } else if (document.getElementById('obstacle').checked) {
