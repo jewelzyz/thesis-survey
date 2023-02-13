@@ -46,6 +46,16 @@
   opacity: 1;
 }
 
+form button {
+  background-color: #9ec3ff;
+  color: #fff;
+  border: 2px solid #333;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
 input.button {
   padding: 10px 40px 10px 40px;
   margin: 5px;
