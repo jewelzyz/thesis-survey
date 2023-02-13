@@ -95,7 +95,7 @@ slides.almost = slide({
 }
 
 //forces a text input on each slide
-function next() {
+function next(this) {
   if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
       alert("Textbox must be filled!");
       event.preventDefault();
