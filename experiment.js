@@ -152,8 +152,8 @@ function next() {
       "stim" : this.stim,
       "text" : this.input,
       "classification" : this.classification,
-      console.log([text, classification]);
     });
+    console.log([text, classification]);
     exp.go();
   }
 }
