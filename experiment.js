@@ -62,7 +62,7 @@ slides.almost = slide({
 
       this.stim = stim; // store this information in the slide so you can record it later
       $(".stimulus-sentence").html(stim.sentence);
-    }    
+    },    
     start: function() {
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
