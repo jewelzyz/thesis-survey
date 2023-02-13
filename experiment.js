@@ -40,14 +40,24 @@ slides.example = slide({
     var classification = $('#response-buttons button:selected').val();
   },
   button: function() {
-        this.input = document.getElementById("text_answer").value = "";
-        if(document.getElementById('opportunity').checked) {
+      if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
+      alert("Textbox must be filled!");
+      event.preventDefault();
+    }
+  else {
+     this.input = document.getElementById("text_answer").value = "";
+     if(document.getElementById('opportunity').checked) {
           exp.classification = "opportunity";
-        } else if (document.getElementById('obstacle').checked) {
+     } else if (document.getElementById('obstacle').checked) {
           exp.classification = "obstacle";
-        } else if (document.getElementById('neither').checked) {
+     } else if (document.getElementById('neither').checked) {
           exp.classification = "neither";
-        }
+     }
+    exp.trials.push({
+    "stim" : this.stim,
+    "text" : this.input,
+    "classification" : this.classification,
+    exp.go();
     }
 });
   
