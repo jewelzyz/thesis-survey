@@ -1,6 +1,7 @@
+  var slides = {};
+
 // set up experiment logic for each slide
 function make_slides(f) {
-  var slides = {};
 
   // set up initial slide
   slides.i0 = slide({
