@@ -151,7 +151,7 @@ function next() {
     exp.trials.push({
       "stim" : this.stim,
       "text" : this.input,
-      "classification" : this.classification
+      "classification" : this.classification,
       console.log([text, classification]);
     });
     exp.go();
