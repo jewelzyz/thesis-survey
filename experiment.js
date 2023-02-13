@@ -153,7 +153,7 @@ function next() {
       "text" : this.input,
       "classification" : this.classification,
     });
-    console.log([text, classification]);
+    console.log([this.input, this.classification]);
     exp.go();
   }
 }
