@@ -47,16 +47,16 @@ slides.example = slide({
     else {
       this.input = document.getElementById("text_answer").value = "";
       if(document.getElementById('opportunity').checked) {
-          exp.classification = "opportunity";
+          classification = "opportunity";
       } else if (document.getElementById('obstacle').checked) {
-          exp.classification = "obstacle";
+          classification = "obstacle";
       } else if (document.getElementById('neither').checked) {
-          exp.classification = "neither";
+          classification = "neither";
       };
       exp.trials.push({
-        "stim" : this.stim,
+        "stim" : "The cat is allowed to be...",
         "text" : this.input,
-        "classification" : this.classification,
+        "classification" : classification,
       });
       exp.go();
     }
