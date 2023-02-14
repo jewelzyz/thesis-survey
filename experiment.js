@@ -46,7 +46,6 @@ slides.example = slide({
     }
     else {
       var classification = null;
-      
       if(document.getElementById('opportunity').checked) {
           classification = "opportunity";
       } else if (document.getElementById('obstacle').checked) {
@@ -99,11 +98,11 @@ slides.almost = slide({
     else {
       this.input = document.getElementById("text_answer").value = "";
       classification = null;
-      if(document.getElementById('opportunity').checked) {
+      if(document.getElementById("opportunity").checked) {
           classification = "opportunity";
-      } else if (document.getElementById('obstacle').checked) {
+      } else if (document.getElementById("obstacle").checked) {
           classification = "obstacle";
-      } else if (document.getElementById('neither').checked) {
+      } else if (document.getElementById("neither").checked) {
           classification = "neither";
       };
       exp.trials.push({
