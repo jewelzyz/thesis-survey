@@ -1,4 +1,4 @@
-  var slides = {};
+var slides = {};
 
 // set up experiment logic for each slide
 function make_slides(f) {
@@ -46,22 +46,24 @@ slides.example = slide({
     }
     else {
       var classification = null;
-      if(document.getElementById('opportunity').checked) {
+      if(document.getElementById("opportunity").checked) {
           classification = "opportunity";
-      } else if (document.getElementById('obstacle').checked) {
+      } else if (document.getElementById("obstacle").checked) {
           classification = "obstacle";
-      } else if (document.getElementById('neither').checked) {
+      } else if (document.getElementById("neither").checked) {
           classification = "neither";
       } else {
         alert("please select a kind of freedom!");
         event.preventDefault();
       };
-      exp.trials.push({
-        "stim" : "The cat is allowed to be...",
-        "text" : document.getElementById("example_answer").value,
-        "classification" : classification,
-      });
-      exp.go();
+      if classification != null {
+        exp.trials.push({
+          "stim" : "The cat is allowed to be...",
+          "text" : document.getElementById("example_answer").value,
+          "classification" : classification,
+        });
+        exp.go();
+      }
     }
   }
 });
