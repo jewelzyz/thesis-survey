@@ -40,18 +40,18 @@ slides.example = slide({
 
   },
   button: function() {
-      if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
+    var classification = null;
+    if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
       alert("Textbox must be filled!");
       event.preventDefault();
     }
     else {
-      var classification = null;
       if(document.getElementById("opportunity").checked) {
-          classification = "opportunity";
+        classification = "opportunity";
       } else if (document.getElementById("obstacle").checked) {
-          classification = "obstacle";
+        classification = "obstacle";
       } else if (document.getElementById("neither").checked) {
-          classification = "neither";
+        classification = "neither";
       } else {
         alert("please select a kind of freedom!");
         event.preventDefault();
