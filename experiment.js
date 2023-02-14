@@ -60,6 +60,7 @@ slides.example = slide({
       });
       exp.go();
     }
+  }
 });
   
 slides.almost = slide({
