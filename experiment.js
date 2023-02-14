@@ -36,7 +36,7 @@ slides.example = slide({
     // hide error message and buttons
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
-    this.input = document.getElementById("text_answer").value = "";
+    document.getElementById("example_answer").value = "";
 
   },
   button: function() {
@@ -46,6 +46,7 @@ slides.example = slide({
     }
     else {
       var classification = null;
+      
       if(document.getElementById('opportunity').checked) {
           classification = "opportunity";
       } else if (document.getElementById('obstacle').checked) {
@@ -54,10 +55,11 @@ slides.example = slide({
           classification = "neither";
       } else {
         alert("please select a kind of freedom!");
+        event.preventDefault();
       };
       exp.trials.push({
         "stim" : "The cat is allowed to be...",
-        "text" : this.input,
+        "text" : document.getElementById("example_answer").value,
         "classification" : classification,
       });
       exp.go();
@@ -141,7 +143,7 @@ function next() {
   else {
     exp.trials.push({
       "stim" : this.stim,
-      "text" : this.input,
+      "text" : document.getElementById("text_answer").value,
       "classification" : this.classification,
     });
     exp.go();
