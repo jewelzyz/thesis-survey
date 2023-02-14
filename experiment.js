@@ -87,16 +87,28 @@ slides.almost = slide({
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
     },
-    button: function() {
-        this.input = document.getElementById("text_answer").value = "";
-        if(document.getElementById('opportunity').checked) {
-          exp.classification = "opportunity";
-        } else if (document.getElementById('obstacle').checked) {
-          exp.classification = "obstacle";
-        } else if (document.getElementById('neither').checked) {
-          exp.classification = "neither";
-        }
+   button: function() {
+      if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
+      alert("Textbox must be filled!");
+      event.preventDefault();
     }
+    else {
+      this.input = document.getElementById("text_answer").value = "";
+      if(document.getElementById('opportunity').checked) {
+          classification = "opportunity";
+      } else if (document.getElementById('obstacle').checked) {
+          classification = "obstacle";
+      } else if (document.getElementById('neither').checked) {
+          classification = "neither";
+      };
+      exp.trials.push({
+        "stim" : "The cat is allowed to be...",
+        "text" : this.input,
+        "classification" : classification,
+      });
+      exp.go();
+    }
+  }
     
     
   });
