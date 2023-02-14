@@ -55,6 +55,17 @@ form button {
   cursor: pointer;
 }
 
+form button:hover {
+  background-color: #96bfff;
+}
+
+form button:active {
+  background-color: #c9deff;	
+}
+
+form button:focus {
+  background-color: #a2b9db;
+}
 
 input.button {
   padding: 10px 40px 10px 40px;
