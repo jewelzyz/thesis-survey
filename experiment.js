@@ -44,8 +44,7 @@ slides.example = slide({
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
       alert("Textbox must be filled!");
       event.preventDefault();
-    }
-    else {
+    } else {
       if(document.getElementById("opportunity").checked) {
         classification = "opportunity";
       } else if (document.getElementById("obstacle").checked) {
