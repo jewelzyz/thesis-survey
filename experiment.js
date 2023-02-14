@@ -45,15 +45,14 @@ slides.example = slide({
       alert("Textbox must be filled!");
       event.preventDefault();
     } else {
-      if(document.getElementById("opportunity").checked) {
+      document.getElementById("opportunity").addEventListener('click', () => {
         classification = "opportunity";
-      } else if (document.getElementById("obstacle").checked) {
+      }
+      document.getElementById("obstacle").addEventListener('click', () => {
         classification = "obstacle";
-      } else if (document.getElementById("neither").checked) {
+      }
+      document.getElementById("neither").addEventListener('click', () => {
         classification = "neither";
-      } else {
-        alert("please select a kind of freedom!");
-        event.preventDefault();
       }
       if (classification != null) {
         exp.trials.push({
