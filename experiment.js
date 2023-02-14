@@ -54,7 +54,7 @@ slides.example = slide({
       } else {
         alert("please select a kind of freedom!");
         event.preventDefault();
-      };
+      }
       if classification != null {
         exp.trials.push({
           "stim" : "The cat is allowed to be...",
