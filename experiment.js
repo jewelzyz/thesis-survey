@@ -36,6 +36,8 @@ slides.example = slide({
     // hide error message and buttons
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
+    this.input = document.getElementById("text_answer").value = "";
+
   },
   button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -44,13 +46,14 @@ slides.example = slide({
     }
     else {
       var classification = null;
-      this.input = document.getElementById("text_answer").value = "";
       if(document.getElementById('opportunity').checked) {
           classification = "opportunity";
       } else if (document.getElementById('obstacle').checked) {
           classification = "obstacle";
       } else if (document.getElementById('neither').checked) {
           classification = "neither";
+      } else {
+        alert("please select a kind of freedom!");
       };
       exp.trials.push({
         "stim" : "The cat is allowed to be...",
