@@ -105,7 +105,7 @@ slides.almost = slide({
           classification = "neither";
       };
       exp.trials.push({
-        "stim" : "The cat is allowed to be...",
+        "stim" : this.stim,
         "text" : this.input,
         "classification" : classification,
       });
