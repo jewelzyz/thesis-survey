@@ -93,6 +93,7 @@ slides.almost = slide({
     }
     else {
       this.input = document.getElementById("text_answer").value = "";
+      classification = null;
       if(document.getElementById('opportunity').checked) {
           classification = "opportunity";
       } else if (document.getElementById('obstacle').checked) {
