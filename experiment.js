@@ -91,14 +91,13 @@ slides.almost = slide({
       event.preventDefault();
     }
     else {
-      this.input = document.getElementById("text_answer").value;
       if (classification === null) {
         alert("Please select a button!");
       } else {
         exp.trials.push({
           "stim" : this.stim,
-          "text" : this.input,
-          "classification" : classification
+          "text" : document.getElementById("text_answer").value,
+          "classification" : classification,
         });
         exp.go();
       }
