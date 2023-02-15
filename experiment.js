@@ -90,22 +90,19 @@ slides.almost = slide({
     }
     else {
       this.input = document.getElementById("text_answer").value = "";
-      check_buttons(classification);
-      if (classification != null) {
+      if (classification === null) {
+        alert("Please select a button!");
+      } else {
         exp.trials.push({
           "stim" : this.stim,
           "text" : this.input,
-          "classification" : classification,
+          "classification" : classification
         });
         exp.go();
-      } else {
-        alert("Please select a freedom and press \"continue\" again!");
       }
     }
-  }
-    
-    
-  });
+   } 
+});
 
   //
   slides.thanks = slide({
