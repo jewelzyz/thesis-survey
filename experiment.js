@@ -45,7 +45,7 @@ slides.example = slide({
       alert("Textbox must be filled!");
       event.preventDefault();
     } else {
-      this.input = document.getElementById("text_answer");
+      this.input = document.getElementById("example_answer");
       classification = null;
       if(document.activeElement === document.getElementById("opportunity")) {
         exp.trials.push({
@@ -67,7 +67,9 @@ slides.example = slide({
           "text" : this.input,
           "classification" : "neither",
         });
-      };
+      } else {
+        alert("Please select a freedom!");
+        
       exp.go();
     }
    } 
@@ -104,20 +106,18 @@ slides.almost = slide({
     }
     else {
       this.input = document.getElementById("text_answer").value = "";
-      classification = null;
-      if(document.getElementById("opportunity").checked) {
-          classification = "opportunity";
-      } else if (document.getElementById("obstacle").checked) {
-          classification = "obstacle";
-      } else if (document.getElementById("neither").checked) {
-          classification = "neither";
-      };
-      exp.trials.push({
-        "stim" : this.stim,
-        "text" : this.input,
-        "classification" : classification,
-      });
-      exp.go();
+      var classification = null;
+      check_buttons(classification);
+      if (classification != null) {
+        exp.trials.push({
+          "stim" : this.stim,
+          "text" : this.input,
+          "classification" : classification,
+        });
+        exp.go();
+      } else {
+        alert("Please select a freedom and press \"continue\" again!");
+      }
     }
   }
     
@@ -138,6 +138,16 @@ slides.almost = slide({
   });
 
   return slides;
+}
+
+function check_buttons(classification) {
+  if(document.getElementById("opportunity").checked) {
+          classification = "opportunity";
+      } else if (document.getElementById("obstacle").checked) {
+          classification = "obstacle";
+      } else if (document.getElementById("neither").checked) {
+          classification = "neither";
+      }
 }
 
 //forces a text input on each slide
