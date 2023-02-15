@@ -122,7 +122,7 @@ slides.almost = slide({
 //stores button pressed and changes its color
 function set_classification(value) {
   classification = value;
-  document.getElementById(value).style.backgroundColor = "#cad6eb";
+  document.getElementById(value).style.backgroundColor = "#ceccff";
 }
 
 //forces a text input on each slide
