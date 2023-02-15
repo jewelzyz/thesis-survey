@@ -45,25 +45,32 @@ slides.example = slide({
       alert("Textbox must be filled!");
       event.preventDefault();
     } else {
-      document.getElementById("opportunity").addEventListener('click', () => {
-        classification = "opportunity";
-      });
-      document.getElementById("obstacle").addEventListener('click', () => {
-        classification = "obstacle";
-     });
-      document.getElementById("neither").addEventListener('click', () => {
-        classification = "neither";
-      });
-      if (classification != null) {
+      this.input = document.getElementById("text_answer");
+      classification = null;
+      if(document.activeElement === document.getElementById("opportunity")) {
         exp.trials.push({
-          "stim" : "The cat is allowed to be...",
-          "text" : document.getElementById("example_answer").value,
-          "classification" : classification,
+          "stim" : this.stim,
+          "text" : this.input,
+          "classification" : "opportunity",
         });
         exp.go();
-      }
+      } else if (document.activeElement === document.getElementById("obstacle")) {
+        exp.trials.push({
+          "stim" : this.stim,
+          "text" : this.input,
+          "classification" : "obstacle",
+        });
+        exp.go();
+      } else if (document.activeElement === document.getElementById("neither")) {
+        exp.trials.push({
+          "stim" : this.stim,
+          "text" : this.input,
+          "classification" : "neither",
+        });
+      };
+      exp.go();
     }
-  }
+   } 
 });
   
 slides.almost = slide({
