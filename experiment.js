@@ -71,6 +71,7 @@ slides.example = slide({
         alert("Please select a freedom!");
         
       exp.go();
+      }
     }
    } 
 });
