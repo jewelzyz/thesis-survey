@@ -41,6 +41,14 @@ form input[type="button"] {
     background-color: #b6d0fc;
 }
 
+form input[type="button"] {
+    background-color: #b6d0fc;
+}
+
+form input[type="button"]:active {
+  background-color: #9babc7;
+}
+
 #cocolab {
 	font-weight: bold;
 }
