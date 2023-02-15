@@ -49,7 +49,7 @@ slides.example = slide({
       } else {
         exp.trials.push({
           "stim" : "The cat is allowed to be...",
-          "text" : document.getElementById("example_answer"),
+          "text" : document.getElementById("example_answer").value,
           "classification" : classification
         });
         exp.go();
