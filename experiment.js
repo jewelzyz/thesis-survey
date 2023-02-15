@@ -47,13 +47,13 @@ slides.example = slide({
     } else {
       document.getElementById("opportunity").addEventListener('click', () => {
         classification = "opportunity";
-      )};
+      });
       document.getElementById("obstacle").addEventListener('click', () => {
         classification = "obstacle";
-     )};
+     });
       document.getElementById("neither").addEventListener('click', () => {
         classification = "neither";
-      )};
+      });
       if (classification != null) {
         exp.trials.push({
           "stim" : "The cat is allowed to be...",
