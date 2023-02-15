@@ -53,6 +53,7 @@ slides.example = slide({
           "classification" : classification
         });
         exp.go();
+        $('.bar').css('width', ( (1/11)*100 + "%"));
       }
     }
    } 
