@@ -82,7 +82,6 @@ slides.almost = slide({
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
         classification = null;
-
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -120,8 +119,10 @@ slides.almost = slide({
   return slides;
 }
 
+//stores button pressed and changes its color
 function set_classification(value) {
   classification = value;
+  document.getElementById(value).style.backgroundColor = #cad6eb;
 }
 
 //forces a text input on each slide
