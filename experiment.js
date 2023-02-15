@@ -82,6 +82,8 @@ slides.almost = slide({
     start: function() {
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
+        classification = null;
+
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
