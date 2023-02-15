@@ -37,10 +37,9 @@ slides.example = slide({
     $('.err').hide();
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
-
+    classification = null;
   },
   button: function() {
-    var classification = null;
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
       alert("Textbox must be filled!");
       event.preventDefault();
