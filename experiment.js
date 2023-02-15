@@ -44,13 +44,12 @@ slides.example = slide({
       alert("Textbox must be filled!");
       event.preventDefault();
     } else {
-      this.input = document.getElementById("example_answer");
       if (classification === null) {
         alert("Please select a button!");
       } else {
         exp.trials.push({
           "stim" : "The cat is allowed to be...",
-          "text" : this.input,
+          "text" : document.getElementById("example_answer"),
           "classification" : classification
         });
         exp.go();
