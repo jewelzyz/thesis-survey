@@ -1,5 +1,5 @@
 var slides = {};
-
+var classification = null;
 // set up experiment logic for each slide
 function make_slides(f) {
 
@@ -46,31 +46,15 @@ slides.example = slide({
       event.preventDefault();
     } else {
       this.input = document.getElementById("example_answer");
-      classification = null;
-      if(document.activeElement === document.getElementById("opportunity")) {
-        exp.trials.push({
-          "stim" : this.stim,
-          "text" : this.input,
-          "classification" : "opportunity",
-        });
-        exp.go();
-      } else if (document.activeElement === document.getElementById("obstacle")) {
-        exp.trials.push({
-          "stim" : this.stim,
-          "text" : this.input,
-          "classification" : "obstacle",
-        });
-        exp.go();
-      } else if (document.activeElement === document.getElementById("neither")) {
-        exp.trials.push({
-          "stim" : this.stim,
-          "text" : this.input,
-          "classification" : "neither",
-        });
+      if (classification === null) {
+        alert("Please select a button!");
       } else {
-        alert("Please select a freedom!");
-        
-      exp.go();
+        exp.trials.push({
+          "stim" : this.stim,
+          "text" : this.input,
+          "classification" : classification
+        });
+        exp.go();
       }
     }
    } 
@@ -141,14 +125,8 @@ slides.almost = slide({
   return slides;
 }
 
-function check_buttons(classification) {
-  if(document.getElementById("opportunity").checked) {
-          classification = "opportunity";
-      } else if (document.getElementById("obstacle").checked) {
-          classification = "obstacle";
-      } else if (document.getElementById("neither").checked) {
-          classification = "neither";
-      }
+function set_classification(value) {
+  classification = value;
 }
 
 //forces a text input on each slide
