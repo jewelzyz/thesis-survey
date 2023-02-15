@@ -91,7 +91,6 @@ slides.almost = slide({
     }
     else {
       this.input = document.getElementById("text_answer").value = "";
-      var classification = null;
       check_buttons(classification);
       if (classification != null) {
         exp.trials.push({
