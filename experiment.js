@@ -49,7 +49,7 @@ slides.example = slide({
         alert("Please select a button!");
       } else {
         exp.trials.push({
-          "stim" : this.stim,
+          "stim" : "The cat is allowed to be...",
           "text" : this.input,
           "classification" : classification
         });
@@ -91,7 +91,7 @@ slides.almost = slide({
       event.preventDefault();
     }
     else {
-      this.input = document.getElementById("text_answer").value = "";
+      this.input = document.getElementById("text_answer").value;
       if (classification === null) {
         alert("Please select a button!");
       } else {
