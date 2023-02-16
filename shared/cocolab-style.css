@@ -45,6 +45,10 @@ form input[type="button"]:active {
   background-color: #9babc7;
 }
 
+form input[type="button"]:focus {
+  background-color: #aba8ff;
+}
+
 #cocolab {
 	font-weight: bold;
 }
