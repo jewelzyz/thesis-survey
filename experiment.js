@@ -64,9 +64,9 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
-    document.getElementById("progress").value += 1/11;
-  }
-
+var progressBar = document.getElementById("progress");
+progressBar.value = parseInt(progressBar.value) + 1/11;  }
+}
 });
 
   slides.trial = slide({
