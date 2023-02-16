@@ -64,6 +64,7 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
+    document.getElementById("progress-bar").value += 1/11;
   }
 
 });
@@ -83,6 +84,7 @@ slides.almost = slide({
         // store stimulus data
         document.getElementById('buttons').style.display = "none";
         classification = null;
+        document.getElementById("progress-bar").value += 1/11;
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
