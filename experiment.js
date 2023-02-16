@@ -1,3 +1,4 @@
+var progressBar = document.getElementById("progress");
 var slides = {};
 var classification = null;
 // set up experiment logic for each slide
@@ -8,6 +9,7 @@ function make_slides(f) {
     name: "i0",
     start: function() {
       exp.startT = Date.now();
+
     }
   });
   
@@ -16,6 +18,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
+      progressBar.value = parseInt(progressBar.value) + 1/14;
     }
   });
   
@@ -27,6 +30,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
+      progressBar.value = parseInt(progressBar.value) + 1/14;
     }
   });
 
@@ -38,6 +42,7 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
     classification = null;
+    progressBar.value = parseInt(progressBar.value) + 1/14;
   },
   button: function() {
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -53,7 +58,6 @@ slides.example = slide({
           "classification" : classification
         });
         exp.go();
-        $('.bar').css('width', ( (1/11)*100 + "%"));
       }
     }
    } 
@@ -64,9 +68,8 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
-var progressBar = document.getElementById("progress");
-progressBar.value = parseInt(progressBar.value) + 1/11;  }
-}
+    progressBar.value = parseInt(progressBar.value) + 1/14;
+  }
 });
 
   slides.trial = slide({
@@ -82,9 +85,9 @@ progressBar.value = parseInt(progressBar.value) + 1/11;  }
     },    
     start: function() {
         // store stimulus data
-        document.getElementById('buttons').style.display = "none";
-        classification = null;
-        document.getElementById("progress").value += 1/11;
+      document.getElementById('buttons').style.display = "none";
+      classification = null;
+      progressBar.value = parseInt(progressBar.value) + 1/14;
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
