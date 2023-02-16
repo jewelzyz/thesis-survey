@@ -48,7 +48,7 @@ slides.example = slide({
         alert("Please select a button!");
       } else {
         exp.trials.push({
-          "stim" : "The cat is allowed to be...",
+          "stim" : "I let the dog off leash and he...",
           "text" : document.getElementById("example_answer").value,
           "classification" : classification
         });
