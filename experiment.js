@@ -144,15 +144,19 @@ function next() {
 
 //shows buttons when a user is done with the text input
 function show_buttons() {
-    var x = document.getElementById('example_buttons');
-    if (x != null) {
-      x.style.display = "block";
-    }
+    if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
+      alert("Textbox must be filled!");
+      event.preventDefault();
+    } else {
+      var x = document.getElementById('example_buttons');
+      if (x != null) {
+        x.style.display = "block";
+      }
 
-    var y = document.getElementById("buttons");
-    if (y != null) {
-      y.style.display = "block";
-    }
+      var y = document.getElementById("buttons");
+      if (y != null) {
+        y.style.display = "block";
+      }
 }
 
 
