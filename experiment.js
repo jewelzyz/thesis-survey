@@ -86,10 +86,9 @@ slides.almost = slide({
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
-      alert("Textbox must be filled!");
-      event.preventDefault();
-    }
-    else {
+        alert("Textbox must be filled!");
+        event.preventDefault();
+    } else {
       if (classification === null) {
         alert("Please select a button!");
       } else {
@@ -131,8 +130,7 @@ function next() {
   if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
       alert("Textbox must be filled!");
       event.preventDefault();
-    }
-  else {
+    } else {
     exp.trials.push({
       "stim" : this.stim,
       "text" : document.getElementById("text_answer").value,
@@ -157,6 +155,7 @@ function show_buttons() {
       if (y != null) {
         y.style.display = "block";
       }
+    }
 }
 
 
