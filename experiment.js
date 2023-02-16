@@ -18,7 +18,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progressBar.value = parseInt(progressBar.value) + 1/14;
+      document.getElementById("progress") = 50;
     }
   });
   
