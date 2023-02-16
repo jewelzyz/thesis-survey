@@ -30,7 +30,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progressBar.value = parseInt(progressBar.value) + 1/14;
+      progressBar.value = parseInt(progressBar.value) + 100/14;
     }
   });
 
@@ -42,7 +42,7 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
     classification = null;
-    progressBar.value = parseInt(progressBar.value) + 1/14;
+    progressBar.value = parseInt(progressBar.value) + 100/14;
   },
   button: function() {
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -68,7 +68,7 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
-    progressBar.value = parseInt(progressBar.value) + 1/14;
+    progressBar.value = parseInt(progressBar.value) + 100/14;
   }
 });
 
@@ -87,7 +87,7 @@ slides.almost = slide({
         // store stimulus data
       document.getElementById('buttons').style.display = "none";
       classification = null;
-      progressBar.value = parseInt(progressBar.value) + 1/14;
+      progressBar.value = parseInt(progressBar.value) + 100/14;
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
