@@ -43,7 +43,7 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
     classification = null;
-    progressBar.value = parseInt(progressBar.value) + 100/14;
+    progressBar.value = 75;
   },
   button: function() {
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
