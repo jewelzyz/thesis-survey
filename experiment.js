@@ -103,7 +103,7 @@ slides.almost = slide({
           "type" : this.stim.type,
           "sentence" : this.stim.sentence,
           "text" : document.getElementById("text_answer").value,
-          "classification" : classification,
+          "classification" : classification
         });
         exp.go();
       }
@@ -115,8 +115,11 @@ slides.almost = slide({
     name: "info",
     start: function() {
       exp.info = {
-        
+        "gender" : null,
+        "age" : null,
+        "languages" : null
       }
+    }
   });
 
   //Thanking participants
