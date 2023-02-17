@@ -1,9 +1,10 @@
-var progressBar = document.getElementById("progress");
+var progress_bar = document.getElementById("progress");
+progress_bar.value = 50;
 var slides = {};
 var classification = null;
 // set up experiment logic for each slide
 function make_slides(f) {
-
+  trial_num = 0;
   // set up initial slide
   slides.i0 = slide({
     name: "i0",
@@ -19,7 +20,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progressBar = 50;
+      progress_bar = 50;
     }
   });
   
@@ -31,7 +32,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progressBar.value = parseInt(progressBar.value) + 100/14;
+      progress_bar.value = parseInt(progress_bar.value) + 100/14;
     }
   });
 
@@ -43,7 +44,7 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
     classification = null;
-    progressBar.value = 75;
+    progress_bar.value = 75;
   },
   button: function() {
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -69,7 +70,7 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
-    progressBar.value = parseInt(progressBar.value) + 100/14;
+    progress_bar.value = parseInt(progress_bar.value) + 100/14;
   }
 });
 
@@ -88,7 +89,8 @@ slides.almost = slide({
         // store stimulus data
       document.getElementById('buttons').style.display = "none";
       classification = null;
-      progressBar.value = parseInt(progressBar.value) + 100/14;
+      progress_bar.value = parseInt(progress_bar.value) + 100/14;
+      trial_num ++;
     },
    button: function() {
       if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -99,6 +101,7 @@ slides.almost = slide({
         alert("Please select a button!");
       } else {
         exp.trials.push({
+          "trial" : trial_num,
           "num" : this.stim.num,
           "type" : this.stim.type,
           "sentence" : this.stim.sentence,
