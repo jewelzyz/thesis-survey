@@ -99,7 +99,9 @@ slides.almost = slide({
         alert("Please select a button!");
       } else {
         exp.trials.push({
-          "stim" : this.stim,
+          "num" : this.stim.num,
+          "type" : this.stim.type,
+          "sentence" : this.stim.sentence,
           "text" : document.getElementById("text_answer").value,
           "classification" : classification,
         });
@@ -108,12 +110,21 @@ slides.almost = slide({
     }
    } 
 });
+  //Gathering background information
+  slides.info = slide({
+    name: "info",
+    start: function() {
+      exp.info = {
+        
+      }
+  });
 
-  //
+  //Thanking participants
   slides.thanks = slide({
     name: "thanks",
     start: function() {
       exp.data = {
+        "info": exp.info,
         "trials": exp.trials,
         "system": exp.system,
         "time_in_minutes": (Date.now() - exp.startT) / 60000
@@ -121,28 +132,12 @@ slides.almost = slide({
       proliferate.submit(exp.data);
     }
   });
-
   return slides;
 }
 
-//stores button pressed and changes its color
+//stores button pressed
 function set_classification(value) {
   classification = value;
-}
-
-//forces a text input on each slide
-function next() {
-  if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
-      alert("Textbox must be filled!");
-      event.preventDefault();
-    } else {
-    exp.trials.push({
-      "stim" : this.stim,
-      "text" : document.getElementById("text_answer").value,
-      "classification" : this.classification,
-    });
-    exp.go();
-  }
 }
 
 //shows buttons when a user is done with the text input
@@ -168,6 +163,7 @@ function show_buttons() {
 function init() {
 
   exp.trials = [];
+  exp.info = [];
 
   var stimuli = [
   {num: 0, type: "non-legal", sentence: 'They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…'},
