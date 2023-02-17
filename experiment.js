@@ -1,5 +1,4 @@
 var progress_bar = document.getElementById("progress");
-progress_bar.value = 50;
 var slides = {};
 var classification = null;
 // set up experiment logic for each slide
@@ -11,6 +10,7 @@ function make_slides(f) {
     start: function() {
       exp.startT = Date.now();
       
+  progress_bar.value = 50;
 
     }
   });
