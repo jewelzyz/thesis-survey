@@ -9,9 +9,6 @@ function make_slides(f) {
     name: "i0",
     start: function() {
       exp.startT = Date.now();
-      
-      progress_bar.value = 50;
-
     }
   });
   
@@ -20,7 +17,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progress_bar = 50;
+      progress_bar.value = 50;
     }
   });
   
