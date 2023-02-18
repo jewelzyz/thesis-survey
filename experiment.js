@@ -17,7 +17,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progress_bar.value = 50;
+      progress_bar.value = parseInt(progress_bar.value) + 100/16;
     }
   });
   
@@ -29,7 +29,7 @@ function make_slides(f) {
     start: function() {
       // hide error message
       $('.err').hide();
-      progress_bar.value = parseInt(progress_bar.value) + 100/14;
+      progress_bar.value = parseInt(progress_bar.value) + 100/16;
     }
   });
 
@@ -41,7 +41,7 @@ slides.example = slide({
     document.getElementById("example_buttons").style.display = "none";
     document.getElementById("example_answer").value = "";
     classification = null;
-    progress_bar.value = 75;
+    progress_bar.value = parseInt(progress_bar.value) + 100/16;
   },
   button: function() {
     if (document.getElementById("example_answer").value === "" & document.getElementById("text_answer").value === "") {
@@ -67,7 +67,7 @@ slides.almost = slide({
   //reseting so we can test for emptiness
   start: function() {
     document.getElementById("example_answer").value = "";
-    progress_bar.value = parseInt(progress_bar.value) + 100/14;
+    progress_bar.value = parseInt(progress_bar.value) + 100/16;
   }
 });
 
@@ -86,7 +86,7 @@ slides.almost = slide({
         // store stimulus data
       document.getElementById('buttons').style.display = "none";
       classification = null;
-      progress_bar.value = parseInt(progress_bar.value) + 100/14;
+      progress_bar.value = parseInt(progress_bar.value) + 100/16;
       trial_num ++;
     },
    button: function() {
@@ -118,7 +118,10 @@ slides.almost = slide({
         "gender" : null,
         "age" : null,
         "languages" : null
-      }
+        
+      };
+      progress_bar.value = parseInt(progress_bar.value) + 100/16;
+
     }
   });
 
