@@ -10,7 +10,7 @@ function make_slides(f) {
     start: function() {
       exp.startT = Date.now();
       
-  progress_bar.value = 50;
+      progress_bar.value = 50;
 
     }
   });
