@@ -1,8 +1,8 @@
-var progress_bar = document.getElementById("progress");
 var slides = {};
 var classification = null;
 // set up experiment logic for each slide
 function make_slides(f) {
+  var progress_bar = document.getElementById("progress");
   trial_num = 0;
   // set up initial slide
   slides.i0 = slide({
