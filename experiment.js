@@ -243,6 +243,7 @@ function init() {
     "trial",
     "trial",
     "trial",
+    "questionnaire",
     "thanks"
   ];
 
