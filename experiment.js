@@ -126,7 +126,7 @@ slides.almost = slide({
 
       };
       progress_bar.value = parseInt(progress_bar.value) + 100/16;
-    }
+    },
     button: function() {
       exp.go();
     }
