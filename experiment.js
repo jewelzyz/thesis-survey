@@ -110,15 +110,38 @@ slides.almost = slide({
     }
    } 
 });
-  //Gathering background information
+  //Gathering background information    slides.questionaire =  slide({
+        name : "questionaire",
+        submit : function(e){
+        //if (e.preventDefault) e.preventDefault(); // I don't know what this means.
+        exp.subj_data = {
+            language : $("#language").val(),
+            american : $('input[name="ame"]:checked').val(),
+            enjoyment : $("#enjoyment").val(),
+            asses : $('input[name="assess"]:checked').val(),
+            age : $("#age").val(),
+            gender : $("#gender").val(),
+            education : $("#education").val(),
+            fairprice : $("#fairprice").val(),
+            problems : $("#problems").val(),
+            comments : $("#comments").val(),
+        };
+        exp.go(); //use exp.go() if and only if there is no "present" data.
+        }
+    });
   slides.questionaire = slide({
     name: "questionaire",
-    start: function() {
-      exp.info = {
-        "gender" : null,
-        "age" : null,
-        "languages" : null
-        
+    submit: function() {
+      exp.subj_data = {
+        "assessment" : $('input[name="assess"]:checked').val(),
+        "gender" : $("#gender").val(),
+        "age" : $("#age").val(),
+        "languages" : $("#language").val(),
+        "american" : $('input[name="ame"]:checked').val(),
+        "fairprice" : $("#fairprice").val(),
+        "problems" : $("#problems").val(),
+        "comments" : $("#comments").val(),
+
       };
       progress_bar.value = parseInt(progress_bar.value) + 100/16;
     }
@@ -171,7 +194,7 @@ function show_buttons() {
 function init() {
 
   exp.trials = [];
-  exp.info = [];
+  exp.subj_data = [];
 
   var stimuli = [
   {num: 0, type: "non-legal", sentence: 'They think I do great work. It\'s things like the parody video that turns me off to photography as a business. I have no interest in dealing with prospects and clients, answering to their whims, or compromising my freedom…'},
