@@ -111,8 +111,8 @@ slides.almost = slide({
    } 
 });
   //Gathering background information    
-  slides.questionaire = slide({
-    name: "questionaire",
+  slides.questionnaire = slide({
+    name: "questionnaire",
     submit: function() {
       exp.subj_data = {
         "assessment" : $('input[name="assess"]:checked').val(),
