@@ -111,8 +111,8 @@ slides.almost = slide({
    } 
 });
   //Gathering background information
-  slides.info = slide({
-    name: "info",
+  slides.questionaire = slide({
+    name: "questionaire",
     start: function() {
       exp.info = {
         "gender" : null,
@@ -121,7 +121,9 @@ slides.almost = slide({
         
       };
       progress_bar.value = parseInt(progress_bar.value) + 100/16;
-
+    }
+    button: function() {
+      exp.go();
     }
   });
 
