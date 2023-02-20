@@ -113,7 +113,7 @@ slides.almost = slide({
   //Gathering background information    
   slides.questionnaire = slide({
     name: "questionnaire",
-    submit: function() {
+    button: function() {
       exp.subj_data = {
         "assessment" : $('input[name="assess"]:checked').val(),
         "gender" : $("#gender").val(),
@@ -123,11 +123,8 @@ slides.almost = slide({
         "fairprice" : $("#fairprice").val(),
         "problems" : $("#problems").val(),
         "comments" : $("#comments").val(),
-
       };
       progress_bar.value = parseInt(progress_bar.value) + 100/16;
-    },
-    button: function() {
       exp.go();
     }
   });
