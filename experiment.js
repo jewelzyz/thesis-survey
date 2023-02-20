@@ -134,7 +134,7 @@ slides.almost = slide({
     name: "thanks",
     start: function() {
       exp.data = {
-        "info": exp.info,
+        "subject_data": exp.subj_data,
         "trials": exp.trials,
         "system": exp.system,
         "time_in_minutes": (Date.now() - exp.startT) / 60000
