@@ -1,0 +1,149 @@
+# Mixed effects logistic regression
+# created by jdegen on May 25, 2017
+# modified by jdegen on May 23, 2018
+
+library(tidyverse)
+library(lme4)
+library(languageR)
+
+# set working directory to directory of script
+this.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(this.dir)
+
+source("helpers.R")
+
+theme_set(theme_bw())
+# set color-blind-friendly color palette
+cbPalette <- c("#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73","#56B4E9")
+
+d = read_csv("../data/freedom_data.csv") %>% 
+  mutate(text = str_trim(text))
+
+# add from/to info
+d = d %>% 
+  mutate(FromTo = case_when(str_starts(text, "to") ~ "to",
+                            str_starts(text, "from") ~ "from",
+                            TRUE ~ "OTHER"))
+
+d_long = d %>% 
+  mutate(To = ifelse(FromTo == "to", 1, 0),
+         From = ifelse(FromTo == "from", 1, 0),
+         Other = ifelse(FromTo == "OTHER", 1, 0)) %>% 
+  pivot_longer(To:Other, names_to="first_word",values_to="value")
+
+#testing
+# general proportions by first word and classification
+agr = d_long %>% 
+  group_by(num,first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
+
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette)
+  facet_wrap(~num)
+
+agr
+
+
+# general proportions by first word and classification
+agr = d_long %>% 
+  group_by(first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
+
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette)
+  facet_wrap(~type)
+  
+agr
+
+# proportions by first word and classification by legal/non-legal type
+agr_type = d_long %>% 
+  group_by(first_word,classification,type) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr_type
+
+dodge=position_dodge(.9)
+
+ggplot(agr_type, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~type)
+
+
+# Isolating 'obstacle' and 'opportunity'
+d_limited = d[d$classification %in% c('obstacle','opportunity') & d$type %in% c('legal', 'non-legal'),]
+d_limited_long = d_limited %>%
+  mutate(To = ifelse(FromTo == "to", 1, 0),
+         From = ifelse(FromTo == "from", 1, 0),
+         Other = ifelse(FromTo == "OTHER", 1, 0)) %>% 
+  pivot_longer(To:Other, names_to="first_word",values_to="value")
+
+# general proportions by first word and classification
+agr = d_limited_long %>% 
+  group_by(first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
+
+dodge=position_dodge(.9)
+
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette)
+
+# proportions by first word and classification by legal/non-legal type
+agr_type = d_limited_long %>% 
+  group_by(first_word,classification,type) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr_type
+
+dodge=position_dodge(.9)
+
+ggplot(agr_type, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~type)
+
+#regression
+#making the to/from a binary (to = 1, from=0)
+d_to = d %>% 
+  mutate(firstwordTo = ifelse(firstword == "to", 1, 0))
+
+d_to$classification = as.factor(as.character(d_to$classification))
+
+#simplest test
+m = glmer(as.factor(classification) ~ firstword + (1|num), data=d, family = "binomial") 
+
+m = glmer(as.factor(classification) ~ firstword*type + (1+firstword*type|workerid), data=d, family = "binomial")
+
+
+
+
+#fixing for convergence:
+
+m = glmer(as.factor(classification) ~ firstword*type + (1+firstword*type), data=d_to, family = "binomial")
+classification ~ firstword*genre + (1+firstword*genre|workerid) + (1+firstword*genre|item)
+
+summary(m)
+
