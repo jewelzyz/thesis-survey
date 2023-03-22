@@ -1,232 +1,139 @@
----
-title: "Clark & Wilkes-Gibbs replication"
-author: "jdegen"
-date: "Nov 17, 2020"
-output: html_document
----
+# Mixed effects logistic regression
+# created by jdegen on May 25, 2017
+# modified by jdegen on May 23, 2018
 
-You conducted a replication of Clark & Wilkes-Gibbs 1986. Clark and Wilkes-Gibbs were interested in how reference to objects changes as interlocutors build common ground over the course of an interaction. In order to test this, they devised an experiment in which two people engaged in a collaborative task of arranging abstract tangram figures according to a predefined order that only one of them had access to. Participants arranged the tangram figures successively in six different orders. The authors found that referring expressions to the figures shortened over the course of the experiment as common ground increased.
-
-![tangrams](tangrams/order1.png)
-
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-require(tidyverse)
-library(knitr)
-library(stringr)
+library(tidyverse)
 library(lme4)
-library(lmerTest)
+library(languageR)
 
 # set working directory to directory of script
-# this.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
-# setwd(this.dir)
+this.dir <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(this.dir)
 
-set.seed(41)
+source("helpers.R")
 
 theme_set(theme_bw())
-
-source("helpers.r")
-
 # set color-blind-friendly color palette
-cbPalette <- c("#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73","#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73","#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73","#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73")
+cbPalette <- c("#56B4E9", "#D55E00", "#009E73","#999999", "#E69F00","#009E73","#56B4E9")
 
-d = read_tsv(file="data.tsv") %>%
-  # na.omit() %>%
-  mutate_all(.funs=tolower) %>%
-  mutate(TranscriptLengthChars=nchar(Transcript)) %>%
-  mutate(SplitTranscript=str_split(Transcript," ")) %>%
-  group_by(Transcript) %>%
-  mutate(TranscriptLengthWords=length(SplitTranscript[[1]])) %>%
-  ungroup() %>%
-  filter(Referent %in% c("a","b","c","d","e","f","g","h","i","j","k","l") & TrialSuccessful %in% c("yes","no")) %>% 
-  filter(!is.na(Experimenter)) %>% 
-  mutate(Trial = as.numeric(str_remove(Trial,"trial ")))
-```
+d = read_csv("../data/freedom_data.csv") %>% 
+  mutate(text = str_trim(text))
 
-How many data points in total?
+# add from/to info
+d = d %>% 
+  mutate(FromTo = case_when(str_starts(text, "to") ~ "to",
+                            str_starts(text, "from") ~ "from",
+                            TRUE ~ "OTHER"))
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-nrow(d)
-```
+d_long = d %>% 
+  mutate(To = ifelse(FromTo == "to", 1, 0),
+         From = ifelse(FromTo == "from", 1, 0),
+         Other = ifelse(FromTo == "OTHER", 1, 0)) %>% 
+  pivot_longer(To:Other, names_to="first_word",values_to="value")
 
-How many unique dyads?
+#by item:
+agr = d_long %>% 
+  group_by(num,first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-round(nrow(d)/24,0)
-```
+dodge=position_dodge(.9)
 
-Which languages are represented?
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~num)
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-sort(table(d$ExpLanguage),desc=T)
-d$binExpLanguage = as.factor(ifelse(d$ExpLanguage %in% c("english","englsih","fiji english"),"english","other"))
-```
-
-How often was the reference successful?
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-table(d$TrialSuccessful)
-prop.table(table(d$TrialSuccessful))
-```
-
-How much data comes from zoom vs in-person experiments?
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-d$binModality = as.factor(ifelse(d$Modality %in% c("in person","in-person"),"in person","zoom"))
-sort(table(d$binModality))
-prop.table(table(d$binModality))
-```
-
-Which referents do we have data for? How often was reference to each successful?
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-sort(table(d$Referent))
-table(d$TrialSuccessful,d$Referent)
-prop.table(table(d$TrialSuccessful,d$Referent),mar=c(2))
-```
-
-What's the mean transcript length overall?
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-mean(d$TranscriptLengthWords)
-```
-
-Distribution of transcript lengths:
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-ggplot(d, aes(x=TranscriptLengthWords)) +
-  geom_histogram(stat="count",position="identity") 
-```
-
-Mean transcript length by trial:
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
-ggplot(agr, aes(x=Trial,y=Mean,group=1)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1))
-```
+agr
 
 
-Mean transcript length by trial and language. Does the effect hold cross-linguistically?
+# general proportions by first word and classification
+agr = d_long %>% 
+  group_by(first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial,binExpLanguage) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
-ggplot(agr, aes(x=Trial,y=Mean,color=binExpLanguage,group=binExpLanguage)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1)) +
-  scale_color_manual(name="Language",values=cbPalette)
-```
+dodge=position_dodge(.9)
 
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~type)
+  
+agr
 
-Mean transcript length by trial and item. Does the shortening effect hold for all items? Yes -- though some items generally require fewer words to communicate about than others.
+# proportions by first word and classification by legal/non-legal type
+agr_type = d_long %>% 
+  group_by(first_word,classification,type) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr_type
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial,Referent) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
-ggplot(agr, aes(x=Trial,y=Mean,group=Referent,color=Referent)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1)) +
-  scale_color_manual(values=cbPalette) +
-  facet_wrap(~Referent,scales="free")
-```
+dodge=position_dodge(.9)
 
-Mean transcript length by trial and whether or not communication was successful: 
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial,TrialSuccessful) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
-ggplot(agr, aes(x=Trial,y=Mean,color=TrialSuccessful,group=TrialSuccessful)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1)) +
-  scale_color_manual(name="Trial successful?",values=cbPalette)
-```
+ggplot(agr_type, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~type)
 
 
-Mean transcript length by trial and modality. 
+# Isolating 'obstacle' and 'opportunity'
+d_limited = d[d$classification %in% c('obstacle','opportunity') & d$type %in% c('legal', 'non-legal'),]
+d_limited_long = d_limited %>%
+  mutate(To = ifelse(FromTo == "to", 1, 0),
+         From = ifelse(FromTo == "from", 1, 0),
+         Other = ifelse(FromTo == "OTHER", 1, 0)) %>% 
+  pivot_longer(To:Other, names_to="first_word",values_to="value")
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial,binModality) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
-ggplot(agr, aes(x=Trial,y=Mean,linetype=binModality)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1)) #+
-  # scale_color_manual(name="Modality",values=cbPalette) +
-  # scale_linetype_manual(name="Modality",values=c(1,2))
-```
+# general proportions by first word and classification
+agr = d_limited_long %>% 
+  group_by(first_word,classification) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr
 
+dodge=position_dodge(.9)
 
-Mean transcript length by trial, modality, and whether or not communication was successful: 
+ggplot(agr, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette)
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-agr = d %>%
-  group_by(Trial,TrialSuccessful,binModality) %>%
-  summarize(Mean=mean(TranscriptLengthWords),CILow=ci.low(TranscriptLengthWords),CIHigh=ci.high(TranscriptLengthWords)) %>%
-  ungroup() %>%
-  mutate(YMin=Mean-CILow,YMax=Mean+CIHigh)
+# proportions by first word and classification by legal/non-legal type
+agr_type = d_limited_long %>% 
+  group_by(first_word,classification,type) %>% 
+  summarize(Proportion=mean(value),CILow=ci.low(value), CIHigh=ci.high(value)) %>% 
+  ungroup() %>% 
+  mutate(YMin=Proportion - CILow, YMax = Proportion + CIHigh)
+agr_type
 
-ggplot(agr, aes(x=Trial,y=Mean,color=TrialSuccessful,linetype=binModality)) +
-  # geom_point() +
-  geom_line(size=1) + 
-  geom_errorbar(aes(ymin=YMin,ymax=YMax,width=.1)) +
-  scale_color_manual(name="Trial successful?",values=cbPalette)
-```
+dodge=position_dodge(.9)
 
+ggplot(agr_type, aes(x=first_word,y=Proportion,fill=classification)) +
+  geom_bar(stat="identity",position=dodge) +
+  geom_errorbar(aes(ymin=YMin,ymax=YMax),position=dodge,width=.1) +
+  scale_fill_manual(values=cbPalette) +
+  facet_wrap(~type)
 
-Let's look at some qualitative examples. Here are some examples of communication about referent A:
-![tangrams](tangrams/A.png){width=25%}
+#regression
+#making the to/from a binary (to = 1, from=0)
+d_to = d %>% 
+  mutate(firstwordTo = ifelse(FromTo == "to", 1, 0))
 
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-kable(d[d$Referent == "a" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-kable(d[d$Referent == "a" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-kable(d[d$Referent == "a" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-```
+d_to$classification = as.factor(as.character(d_to$classification))
 
-Here are some examples of communication about referent I:
-![tangrams](tangrams/I.png){width=25%}
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-kable(d[d$Referent == "i" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-kable(d[d$Referent == "i" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-kable(d[d$Referent == "i" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-# kable(d[d$Referent == "a" & d$Experimenter == sample(d$Experimenter,1),c("Trial","Transcript")])
-# ex_i = d %>% 
-#   filter(Referent == "i")
-# ex_i_experimenters = sample(unique(ex_i$Experimenter),2)
-# ex_i = ex_i %>% 
-#   filter(Experimenter %in% ex_i_experimenters)
-# ex_a = d %>% 
-#   filter(Referent == "a") 
-# ex_a_experimenters = sample(unique(ex_a$Experimenter),2)
-# ex_a = ex_a %>% 
-#   filter(Experimenter %in% ex_a_experimenters)
-# kable(ex_i[,c("Experimenter","Trial","Transcript")] %>% arrange(Experimenter,Trial))
-# kable(ex_a[,c("Experimenter","Trial","Transcript")] %>% arrange(Experimenter,Trial))
-```
-
-```{r message=FALSE, warning=FALSE, echo=FALSE}
-d$cTrial = as.numeric(as.character(d$Trial)) - mean(as.numeric(as.character(d$Trial)))
-m = lmer(TranscriptLengthWords ~ cTrial * TrialSuccessful + cTrial * binExpLanguage + (1|Experimenter) + (1|Referent), data=d)
+m = glmer(as.factor(classification) ~ FromTo*type + (1+FromTo*type|workerid) + (1+FromTo*type|num), data=d_to, family = "binomial") 
 summary(m)
-```
+
+#stripped of first word classifiers
+m = glmer(as.factor(classification) ~ type + (1+type|workerid) + (1+type|num), data=d_to, family = "binomial") 
+summary(m)
